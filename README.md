@@ -24,7 +24,7 @@
 ## Installation
 
 1. Clone or download this repository to your local machine.
-2. Open the `index.html` file in your browser to play the game.
+2. Open the 'web' folder and `index.html` file in your browser to play the game.
 
 ## How to Play
 
