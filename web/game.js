@@ -26,6 +26,7 @@ let gameMode = 'normal'; // Set default game mode to normal
 function showMainMenu() {
     document.getElementById("mainMenu").style.display = "flex";
     document.getElementById("gameArea").style.display = "none";
+    removeGameControls(); // Remove back and arrow buttons when returning to the main menu
 }
 
 // Start the game based on the selected mode (Normal or Speedrun)
@@ -34,6 +35,7 @@ function startGame(mode) {
     document.getElementById("mainMenu").style.display = "none";
     document.getElementById("gameArea").style.display = "flex";
     initGame();
+    addGameControls(); // Add back and arrow buttons for the game
 }
 
 // Initialize the game
@@ -136,17 +138,57 @@ function draw() {
     ctx.fillRect(playerRectX, playerRectY, BLOCK_SIZE, BLOCK_SIZE);
 }
 
+// Add game controls dynamically
+function addGameControls() {
+    const gameArea = document.getElementById("gameArea");
+
+    // Back button
+    const backButton = document.createElement("button");
+    backButton.textContent = "Back to Main Menu";
+    backButton.id = "backButton";
+    backButton.onclick = showMainMenu;
+    gameArea.appendChild(backButton);
+
+    // Arrow buttons
+    const controls = document.createElement("div");
+    controls.id = "controls";
+
+    ["Up", "Left", "Right", "Down"].forEach(direction => {
+        const btn = document.createElement("button");
+        btn.textContent = direction === "Up" ? "↑" : direction === "Down" ? "↓" : direction === "Left" ? "←" : "→";
+        btn.id = `btn${direction}`;
+        btn.onclick = () => handleMovement(`Arrow${direction}`);
+        controls.appendChild(btn);
+    });
+
+    gameArea.appendChild(controls);
+}
+
+// Remove game controls dynamically
+function removeGameControls() {
+    const backButton = document.getElementById("backButton");
+    const controls = document.getElementById("controls");
+
+    if (backButton) backButton.remove();
+    if (controls) controls.remove();
+}
+
 // Handle key presses for movement
 document.addEventListener('keydown', (e) => {
+    handleMovement(e.key);
+});
+
+// Handle movement logic
+function handleMovement(key) {
     if (gameOver) return;
 
-    if (e.key === "ArrowUp" && playerPos[1] > 0) {
+    if (key === "ArrowUp" && playerPos[1] > 0) {
         playerPos[1]--;
-    } else if (e.key === "ArrowDown" && playerPos[1] < GRID_SIZE - 1) {
+    } else if (key === "ArrowDown" && playerPos[1] < GRID_SIZE - 1) {
         playerPos[1]++;
-    } else if (e.key === "ArrowLeft" && playerPos[0] > 0) {
+    } else if (key === "ArrowLeft" && playerPos[0] > 0) {
         playerPos[0]--;
-    } else if (e.key === "ArrowRight" && playerPos[0] < GRID_SIZE - 1) {
+    } else if (key === "ArrowRight" && playerPos[0] < GRID_SIZE - 1) {
         playerPos[0]++;
     }
 
@@ -154,7 +196,7 @@ document.addEventListener('keydown', (e) => {
     checkBlock();
     updateUI();
     draw();
-});
+}
 
 // Check the current block the player is on
 function checkBlock() {
