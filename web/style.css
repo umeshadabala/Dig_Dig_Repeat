@@ -1,0 +1,68 @@
+body {
+    background-color: #181818;
+    /* Darker background for contrast */
+    font-family: 'Courier New', Courier, monospace;
+    color: #00FF00;
+    /* Green text */
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #00FF00;
+}
+
+button {
+    background-color: #333333;
+    color: #00FF00;
+    font-size: 20px;
+    border: 1px solid #00FF00;
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+    background-color: #00FF00;
+    color: black;
+}
+
+.gameArea {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+#gameInfo {
+    color: #00FF00;
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+canvas {
+    border: 2px solid #00FF00;
+    margin-top: 20px;
+}
+
+#restartButton {
+    background-color: #333333;
+    color: #00FF00;
+    font-size: 20px;
+    border: 1px solid #00FF00;
+    padding: 10px;
+    margin: 10px;
+}
+
+#status {
+    font-size: 20px;
+}
