@@ -199,30 +199,37 @@ function handleMovement(key) {
 }
 
 // Check the current block the player is on
+// Check the current block the player is on
+// Check the current block the player is on
+// Check the current block the player is on
 function checkBlock() {
     const x = playerPos[0];
     const y = playerPos[1];
     const block = grid[y][x];
 
-    if (block === 1 || block === 3) { // Dangerous block (red) or Teleporter (purple)
+    if (block === 1) { // Dangerous block (red)
         if (gameMode === 'normal') {
             lives--;
             if (lives <= 0) {
                 gameOver = true;
                 message = "Game Over! You ran out of lives!";
             } else {
-                playerPos = [0, 0];
-                message = block === 1 ? "You hit a danger! Resetting position..." : "Teleported! Resetting position...";
+                playerPos = [0, 0]; // Reset to the starting position
+                message = "You hit a danger! Resetting position...";
             }
         } else {
-            playerPos = [0, 0];
-            message = block === 1 ? "You hit a danger! Resetting position..." : "Teleported! Resetting position...";
+            playerPos = [0, 0]; // Reset to the starting position
+            message = "You hit a danger! Resetting position...";
         }
+    } else if (block === 3) { // Teleporter (purple)
+        playerPos = [0, 0]; // Reset to the starting position without losing lives
+        message = "Teleported! Resetting position...";
     } else if (block === 2) { // True goal (green)
         gameOver = true;
         message = `You win! Time: ${(Date.now() - startTime) / 1000}s`;
     }
 }
+
 
 // Update the UI with lives and time
 function updateUI() {
